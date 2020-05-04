@@ -4,25 +4,23 @@ import { Cards, Chart, CountryPicker } from './components';
 import { fetchData } from './api';
 import axios from 'axios';
 
-export default function Home() {
+class Home extends React.Component{
 
-    axios.get('https://covid19.mathdro.id/api')
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    render(){
 
-    return (
+        return (
 
-        <View style={styles.container}>
-            <Cards />
-            <Chart />
-            <CountryPicker />
-        </View>
-    )
+            <View style={styles.container}>
+                <Cards />
+                <Chart />
+                <CountryPicker />
+            </View>
+        )
+
+    }
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
     container: {

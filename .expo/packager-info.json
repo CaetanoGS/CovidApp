@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 16076,
+  "packagerPid": 1070,
   "expoServerNgrokUrl": "https://3v-uvf.anonymous.covidapp.exp.direct",
   "packagerNgrokUrl": "https://packager.3v-uvf.anonymous.covidapp.exp.direct",
-  "ngrokPid": 16097,
+  "ngrokPid": 1084,
   "webpackServerPort": null
 }
