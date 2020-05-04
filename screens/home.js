@@ -1,10 +1,25 @@
 import React from 'react'
-import {StyleSheet, View, Text} from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+import { Cards, Chart, CountryPicker } from './components';
+import { fetchData } from './api';
+import axios from 'axios';
 
-export default function Home(){
-    return(
+export default function Home() {
+
+    axios.get('https://covid19.mathdro.id/api')
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    return (
+
         <View style={styles.container}>
-            <Text> Home Screen Goku</Text>
+            <Cards />
+            <Chart />
+            <CountryPicker />
         </View>
     )
 }
