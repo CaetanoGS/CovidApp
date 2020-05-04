@@ -9,6 +9,7 @@ class Home extends React.Component{
     async componentDidMount(){
 
         const data = await fetchData();
+        
 
         console.log(data);
     }
