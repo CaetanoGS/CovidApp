@@ -2,9 +2,16 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { Cards, Chart, CountryPicker } from './components';
 import { fetchData } from './api';
-import axios from 'axios';
+
 
 class Home extends React.Component{
+
+    async componentDidMount(){
+
+        const data = await fetchData();
+
+        console.log(data);
+    }
 
     render(){
 
