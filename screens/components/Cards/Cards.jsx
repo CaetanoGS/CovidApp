@@ -15,25 +15,25 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
 
         <View>
 
-            <Card>
+            <Card style={styles.confirmed}>
 
-                <Text> <AnimateNumber value={ confirmed.value } interval={15} steps={66}/> </Text>
+                <Text> { confirmed.value } </Text>
                 <Text> { new Date(lastUpdate).toDateString() } </Text>
                 <Text> Number of active cases of COVID-19</Text>
 
             </Card>
 
-            <Card>
+            <Card style={styles.recovered}> 
 
-                <Text><AnimateNumber value={ recovered.value } interval={15} steps={66}/></Text>
+                <Text>{ recovered.value }</Text>
                 <Text>{ new Date(lastUpdate).toDateString() }</Text>
                 <Text>Number of recoveries cases from COVID-19</Text>
 
             </Card>
 
-            <Card>
+            <Card style={styles.deaths}>
 
-                <Text><AnimateNumber value={ deaths.value } interval={15} steps={66}/></Text>
+                <Text>{ deaths.value }</Text>
                 <Text>{ new Date(lastUpdate).toDateString() }</Text>
                 <Text>Number of deaths caused by COVID-19</Text>
 
@@ -45,3 +45,19 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
 }
 
 export default Cards;
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 24
+    },
+    confirmed:{
+        color: "#0000ff"
+
+    },
+    recovered:{
+
+    },
+    deaths:{
+
+    }
+})
