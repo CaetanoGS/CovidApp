@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native'
-import { Card } from 'react-native-elements';
-import AnimateNumber from 'react-native-countup'
+import { Card, Icon } from 'react-native-elements';
+
+
+
 
 const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
-    
-    if(!confirmed){
+
+    if (!confirmed) {
         return (
             <Text>Loading ...</Text>
         );
@@ -14,28 +16,21 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
     return (
 
         <View>
+            <Card title="Number of active cases of COVID-19" style={{ card: { backgroundColor: 'red' }}}>
+                <Text> {confirmed.value} </Text>
+                <Text> {new Date(lastUpdate).toDateString()} </Text>
+            </Card>
 
-            <Card style={styles.confirmed}>
-
-                <Text> { confirmed.value } </Text>
-                <Text> { new Date(lastUpdate).toDateString() } </Text>
-                <Text> Number of active cases of COVID-19</Text>
+            <Card title= "Number of recoveries cases from COVID-19"style={styles.recovered}>
+                <Text>{recovered.value}</Text>
+                <Text>{new Date(lastUpdate).toDateString()}</Text>
 
             </Card>
 
-            <Card style={styles.recovered}> 
+            <Card title="Number of deaths caused by COVID-19" style={styles.deaths}>
 
-                <Text>{ recovered.value }</Text>
-                <Text>{ new Date(lastUpdate).toDateString() }</Text>
-                <Text>Number of recoveries cases from COVID-19</Text>
-
-            </Card>
-
-            <Card style={styles.deaths}>
-
-                <Text>{ deaths.value }</Text>
-                <Text>{ new Date(lastUpdate).toDateString() }</Text>
-                <Text>Number of deaths caused by COVID-19</Text>
+                <Text>{deaths.value}</Text>
+                <Text>{new Date(lastUpdate).toDateString()}</Text>
 
             </Card>
 
@@ -44,20 +39,23 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
     );
 }
 
-export default Cards;
-
 const styles = StyleSheet.create({
     container: {
         padding: 24
     },
-    confirmed:{
-        color: "#0000ff"
+    confirmed: {
+        backgroundColor: 'red'
 
     },
-    recovered:{
+    recovered: {
+        padding: 24
 
     },
-    deaths:{
+    deaths: {
+        padding: 24
 
-    }
+    },
 })
+
+export default Cards;
+
