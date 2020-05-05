@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
-import { Card} from 'react-native-elements';
-
+import { StyleSheet, View, Text, SafeAreaView } from 'react-native'
+import { Card } from 'react-native-elements';
 
 
 
@@ -16,33 +15,34 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
     return (
 
         <SafeAreaView>
-        <View>
-            <Card 
-                title="Number of active cases of COVID-19"
-                image={require('../../images/confirmed.jpg')}
-                style={{ card: { backgroundColor: 'red' }}}>
-                <Text> {confirmed.value} </Text>
-                <Text> {new Date(lastUpdate).toDateString()} </Text>
-            </Card>
+            <View>
+                <Card
+                    title="Number of active cases of COVID-19"
+                    image={require('../../images/confirmed.jpg')}
+                    style={{ card: { backgroundColor: 'red' } }}>
+                    <Text style={styles.number}>{confirmed.value}</Text>
+                    <Text style={styles.date}> {new Date(lastUpdate).toDateString()} </Text>
 
-            <Card title= "Number of recoveries cases from COVID-19"
-            image={require('../../images/recovered.jpg')}
-            style={styles.recovered}>
-                <Text>{recovered.value}</Text>
-                <Text>{new Date(lastUpdate).toDateString()}</Text>
+                </Card>
 
-            </Card>
+                <Card title="Number of recoveries cases from COVID-19"
+                    image={require('../../images/recovered.jpg')}
+                    style={styles.recovered}>
+                    <Text style={styles.number}>{recovered.value}</Text>
+                    <Text style={styles.date}>{new Date(lastUpdate).toDateString()}</Text>
 
-            <Card title="Number of deaths caused by COVID-19"
-            image={require('../../images/deaths.jpg')}
-            style={styles.deaths}>
+                </Card>
 
-                <Text>{deaths.value}</Text>
-                <Text>{new Date(lastUpdate).toDateString()}</Text>
+                <Card title="Number of deaths caused by COVID-19"
+                    image={require('../../images/deaths.jpg')}
+                    style={styles.deaths}>
 
-            </Card>
+                    <Text style={styles.number}>{deaths.value}</Text>
+                    <Text style={styles.date}>{new Date(lastUpdate).toDateString()}</Text>
 
-        </View>
+                </Card>
+
+            </View>
         </SafeAreaView>
 
     );
@@ -52,18 +52,16 @@ const styles = StyleSheet.create({
     container: {
         padding: 24
     },
-    confirmed: {
-        backgroundColor: 'red'
-
+    number: {
+        textAlign: 'center', // <-- the magic
+        fontWeight: 'bold',
+        fontSize: 20,
     },
-    recovered: {
-        padding: 24
 
-    },
-    deaths: {
-        padding: 24
+    date: {
+        textAlign: 'center',
 
-    },
+    }
 })
 
 export default Cards;
