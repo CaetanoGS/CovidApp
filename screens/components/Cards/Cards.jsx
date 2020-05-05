@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native'
-import { Card, Icon } from 'react-native-elements';
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
+import { Card} from 'react-native-elements';
 
 
 
@@ -15,19 +15,27 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
 
     return (
 
+        <SafeAreaView>
         <View>
-            <Card title="Number of active cases of COVID-19" style={{ card: { backgroundColor: 'red' }}}>
+            <Card 
+                title="Number of active cases of COVID-19"
+                image={require('../../images/confirmed.jpg')}
+                style={{ card: { backgroundColor: 'red' }}}>
                 <Text> {confirmed.value} </Text>
                 <Text> {new Date(lastUpdate).toDateString()} </Text>
             </Card>
 
-            <Card title= "Number of recoveries cases from COVID-19"style={styles.recovered}>
+            <Card title= "Number of recoveries cases from COVID-19"
+            image={require('../../images/recovered.jpg')}
+            style={styles.recovered}>
                 <Text>{recovered.value}</Text>
                 <Text>{new Date(lastUpdate).toDateString()}</Text>
 
             </Card>
 
-            <Card title="Number of deaths caused by COVID-19" style={styles.deaths}>
+            <Card title="Number of deaths caused by COVID-19"
+            image={require('../../images/deaths.jpg')}
+            style={styles.deaths}>
 
                 <Text>{deaths.value}</Text>
                 <Text>{new Date(lastUpdate).toDateString()}</Text>
@@ -35,6 +43,7 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
             </Card>
 
         </View>
+        </SafeAreaView>
 
     );
 }

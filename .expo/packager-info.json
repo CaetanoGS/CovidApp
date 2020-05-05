@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 1447,
-  "expoServerNgrokUrl": "https://4r-uvt.anonymous.covidapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.4r-uvt.anonymous.covidapp.exp.direct",
-  "ngrokPid": 1456,
+  "packagerPid": 5464,
+  "expoServerNgrokUrl": "https://yu-giz.anonymous.covidapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.yu-giz.anonymous.covidapp.exp.direct",
+  "ngrokPid": 5475,
   "webpackServerPort": null
 }

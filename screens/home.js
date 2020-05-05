@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { Cards, Chart, CountryPicker } from './components';
+import { StyleSheet, View, Text, ScrollView, SafeAreaView } from 'react-native'
+import { Cards } from './components';
 import { fetchData } from './api';
 
 
@@ -24,11 +24,11 @@ class Home extends React.Component{
 
         return (
 
-            <View style={styles.container}>
+            <SafeAreaView>
+                <ScrollView>
                 <Cards data={data}/>
-                <Chart />
-                <CountryPicker />
-            </View>
+                </ScrollView>
+            </SafeAreaView>
         )
 
     }
