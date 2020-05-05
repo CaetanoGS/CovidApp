@@ -1,52 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, SafeAreaView } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, ScrollView, SafeAreaView, View } from 'react-native';
 import { Chart } from './components';
 import { fetchDailyData } from './api';
+import { ECharts } from 'react-native-echarts-wrapper';
 
 
-class ChartPlot extends React.Component {
+
+export default class ChartPlot extends React.Component {
 
 
     state = {
         data: [],
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
 
         const fetchedData = await fetchDailyData();
 
-        this.setState( { data:fetchedData } );
+        this.setState({ data: fetchedData });
 
     }
 
-render() {
 
-    const { data } = this.state;
+    option = {
+        xAxis: {
+            type: 'category',
+            data: [null]
+        },
+        yAxis: {
+            type: 'value',
+            data: [null]
+        },
+        series: [{
+            type: 'line',
+            data: [null],
+            name: 'Confirmed Cases'
+        }, {
+            type: 'line',
+            data: [null],
+            name: 'Number of Deaths'
+        }]
+    };
 
-    if (!data[0]) {
+
+    render() {
+
+        const { data } = this.state;
+
+        this.option.xAxis.data = data.map((data) => data.date);
+        this.option.series[0].data = data.map((data) => data.confirmed);
+        this.option.series[1].data = data.map((data) => data.deaths);
+
+
         return (
-            <Text>Loading ...</Text>
-        );
+            <View style={styles.chartContainer}>
+                <ECharts option={this.option}></ECharts>
+            </View>
+        )
+
     }
-
-    console.log(data.map((data) => data.confirmed));
-
-    return (
-
-        <SafeAreaView>
-            <ScrollView>
-                <Chart />
-            </ScrollView>
-        </SafeAreaView>
-    )
-
-}
 }
 
-export default ChartPlot;
+ ChartPlot;
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 24
+    chartContainer: {
+        flex: 1,
+        left: 5
+
+
+
     }
 })
