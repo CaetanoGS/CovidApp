@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { fetchDailyData } from './api';
-
 import { ECharts } from "react-native-echarts-wrapper";
 
 
