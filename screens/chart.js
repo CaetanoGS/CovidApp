@@ -26,7 +26,7 @@ export default class ChartPlot extends React.Component {
 
     option = {
         title: {
-            text: 'Global Situation'
+            text: 'Global'
         },
         tooltip: {
             trigger: 'axis',
@@ -38,7 +38,7 @@ export default class ChartPlot extends React.Component {
             }
         },
         legend: {
-            data: []
+            data: ['Confirmed', 'Deaths']
         },
         toolbox: {
             feature: {
@@ -55,7 +55,7 @@ export default class ChartPlot extends React.Component {
             {
                 type: 'category',
                 boundaryGap: false,
-                data: []
+                data: [null]
             }
         ],
         yAxis: [
@@ -69,22 +69,23 @@ export default class ChartPlot extends React.Component {
                 type: 'line',
                 stack: '总量',
                 areaStyle: {},
-                data: []
+                data: [null]
             },
             {
-                name: 'Infecteds',
+                name: 'Confirmed',
                 type: 'line',
                 stack: '总量',
                 areaStyle: {},
                 data: [null]
             }
-
         ]
     };
 
 
     render() {
 
+
+        //https://echarts.apache.org/examples/en/ 
         const { data } = this.state;
 
         const confirmed = data.map((data) => data.confirmed);
@@ -93,16 +94,13 @@ export default class ChartPlot extends React.Component {
 
         this.option.series[0].data = deaths;
         this.option.series[1].data = confirmed;
-        this.option.legend.data = date;
-
-        console.log(this.option.series[0].data, this.option.series[1].data, this.option.legend.data);
+        this.option.xAxis[0].data = date;
 
 
         return (
             <View style={styles.chartContainer}>
                 <ECharts
                     option={this.option}
-                    backgroundColor="rgba(250, 250, 250, 0.3)"
                 />
             </View>
         )
