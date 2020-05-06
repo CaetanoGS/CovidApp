@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component, Animated, useState, useEffect } from 'react'
 import { StyleSheet, View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { Header } from 'react-native-elements';
-import { CountryPicker } from './components';
 import { fetchCountries } from './api';
 import DropdownMenu from 'react-native-dropdown-menu';
+import { ECharts } from "react-native-echarts-wrapper";
+
 
 
 
 class Country extends React.Component {
 
     state = {
-        countries: [],
-        text: ''
+        countries: []
     }
 
     async componentDidMount() {
@@ -22,6 +22,23 @@ class Country extends React.Component {
 
     }
 
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar',
+            showBackground: true,
+            backgroundStyle: {
+                color: 'rgba(220, 220, 220, 0.8)'
+            }
+        }]
+    };
 
     render() {
 
@@ -31,32 +48,33 @@ class Country extends React.Component {
             return (
                 <Text> Loading ... </Text>
             )
-        }
+        }else{
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
-                <ScrollView>
+                <View style={{height: 100, backgroundColor: '#fff'}}>
+                <ScrollView style={{ flex: 1, height: 5}}>
                     <DropdownMenu
                         style={{ flex: 1 }}
                         bgColor={'white'}
                         tintColor={'#666666'}
                         activityTintColor={'green'}
                         data={data}
-                        maxHeight={300} 
+                        maxHeight={200} 
                         handler={(selection, row) => this.setState({text: data[selection][row]})}
                     >
                     </DropdownMenu>
-
                 </ScrollView>
 
-                <Text>
-              {this.state.text} is the best language in the world
-            </Text>
+                </View>
 
-                
+                <ECharts
+                    option={this.option}
+                />
 
             </SafeAreaView>
         );
+    }
 
     }
 }
@@ -64,14 +82,6 @@ class Country extends React.Component {
 export default Country;
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
-
-    dropbown: {
-        height: 50,
-        width: 150
-    }
 
 
-})
+});
