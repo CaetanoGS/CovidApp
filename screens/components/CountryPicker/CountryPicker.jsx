@@ -1,10 +1,15 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View, Text, ScrollView, SafeAreaView} from 'react-native';
+import DropdownMenu from 'react-native-dropdown-menu';
+import { ECharts } from "react-native-echarts-wrapper";
 
-const CountryPicker = () => {
+
+const CountryPicker = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
+
+
     return(
         <View>
-            <Text>Country</Text>
+            <Text>CountryPicker</Text>
         </View>
     );
 }

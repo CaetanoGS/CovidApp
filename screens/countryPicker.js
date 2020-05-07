@@ -1,9 +1,18 @@
 import React, { Component, Animated, useState, useEffect } from 'react'
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Dimensions, View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { Header } from 'react-native-elements';
 import { fetchCountries, fetchCountriesData } from './api';
 import DropdownMenu from 'react-native-dropdown-menu';
 import { ECharts } from "react-native-echarts-wrapper";
+import { CountryPicker } from './components';
+import {
+    LineChart,
+    BarChart,
+    PieChart,
+    ProgressChart,
+    ContributionGraph
+} from 'react-native-chart-kit';
+
 
 
 
@@ -12,10 +21,9 @@ class Country extends React.Component {
 
     state = {
         countries: [],
-        countriesData: {},
-        confirmed: null,
-        recovered: null,
-        deaths: null
+        confirmed: {},
+        recovered: {},
+        deaths: {}
     }
 
     async componentDidMount() {
@@ -30,90 +38,109 @@ class Country extends React.Component {
 
         const fetchedCountriesData = await fetchCountriesData(country);
 
-        this.setState({ countriesData: fetchedCountriesData });
-        this.setState({ confirmed: fetchedCountriesData.confirmed.value });
-        this.setState({ recovered: fetchedCountriesData.recovered.value });
-        this.setState({ deaths: fetchedCountriesData.deaths.value });
-
-
-        //console.log(country);
+        this.setState({ confirmed: fetchedCountriesData.confirmed, recovered: fetchedCountriesData.recovered, deaths: fetchedCountriesData.deaths });
 
     }
 
-    option = {
-        xAxis: {
-            type: 'category',
-            data: [{
-                value: ['Confirmed'],
-            },{
-                value: ['Recovered'],
-            },{
-                value: ['Deaths']
-            }]
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [],
-            type: 'bar',
-            color: ['Dark', 'Yellow', 'Blue'],
-            showBackground: true,
-            backgroundStyle: {
-                color: 'rgba(220, 220, 220, 0.8)'
-            }
-        }]
-    };
 
     render() {
 
-        var data = [this.state.countries];
+        var data1 = [this.state.countries];
 
-        var dataBar = [];
+        const dataCountry = this.state.confirmed;
 
-        if(this.state.confirmed == null || this.state.recovered == null || this.state.recovered == null){ 
-            dataBar = [1, 2, 3];
-            this.option.series[0].data = dataBar;
-        }else{ 
-            dataBar.push(this.state.confirmed, this.state.recovered, this.state.deaths);
-            this.option.series[0].data = dataBar;
+        let confirmedCases = this.state.confirmed.value;
+        let recoveredCases = this.state.recovered.value;
+        let deathsCases = this.state.deaths.value;
+
+        const dataCases = [confirmedCases, recoveredCases, deathsCases];
+
+        console.log(dataCases);
+
+        if (confirmedCases == null)
+            confirmedCases = null;
+        else
+            confirmedCases = confirmedCases / 1000;
+        if (recoveredCases == null)
+            recoveredCases = null;
+        else
+            recoveredCases = recoveredCases / 1000;
+        if (deathsCases == null)
+            deathsCases = null;
+        else
+            deathsCases = deathsCases / 1000;
+
+
+
+        const data = {
+            labels: ['Infected', 'Recovered', 'Deaths'],
+            datasets: [{
+                data: [confirmedCases, recoveredCases, deathsCases]
+            }]
         }
 
-        console.log(dataBar);
-
-
-
-        if (data.length == 0) {
-            return (
-                <Text> Loading ... </Text>
-            )
-        }else{
 
         return (
-            <SafeAreaView style={{ flex: 1 }}>
-                <View style={{height: 100, backgroundColor: '#fff'}}>
-                <ScrollView style={{ flex: 1, height: 5}}>
-                    <DropdownMenu
-                        style={{ flex: 1 }}
-                        bgColor={'white'}
-                        tintColor={'#666666'}
-                        activityTintColor={'green'}
-                        data={data}
-                        maxHeight={200} 
-                        handler={(selection, row) => this.handleCountryChange(data[selection][row])}
-                    >
-                    </DropdownMenu>
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+                <ScrollView style={{ flex: 1, height: 5 }}>
+                    <View style={{ height: 500, backgroundColor: '#fff' }}>
+
+                        <Text
+                            style={{
+                                textAlign: 'center',
+                                fontSize: 18,
+                                padding: 16,
+                                marginTop: 16,
+                            }}>
+                            Bar Chart
+                        </Text>
+
+                        <BarChart
+
+                            data={data}
+                            width={Dimensions.get('window').width - 0}
+                            height={450}
+                            yAxisLabel={'k'}
+                            chartConfig={{
+                                backgroundColor: "transparent",
+                                backgroundGradientFrom: '#ffffff00',
+                                backgroundGradientTo: '#fff',
+                                strokeWidth: 2,
+                                decimalPlaces: 1,
+                                color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
+                                style: {
+                                    borderRadius: 16,
+                                },
+                            }}
+                            style={{
+                                marginVertical: 8,
+                                borderRadius: 16,
+                                left: 0,
+                            }}
+                        />
+
+
+                    </View>
+
+                    <View style={{ height: 200, backgroundColor: '#fff' }}>
+
+                        <DropdownMenu
+                            style={{ flex: 1 }}
+                            bgColor={'white'}
+                            tintColor={'#666666'}
+                            activityTintColor={'green'}
+                            data={data1}
+                            maxHeight={200}
+                            handler={(selection, row) => this.handleCountryChange(data1[selection][row])}
+                        >
+                        </DropdownMenu>
+
+
+                    </View>
                 </ScrollView>
-
-                </View>
-
-                <ECharts
-                    option={this.option}
-                />
 
             </SafeAreaView>
         );
-    }
 
     }
 }
