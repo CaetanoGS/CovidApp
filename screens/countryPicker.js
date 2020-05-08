@@ -1,40 +1,46 @@
-import React, { Component, Animated, useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, Dimensions, View, Text, ScrollView, SafeAreaView } from 'react-native';
-import { Header } from 'react-native-elements';
-import { fetchCountries, fetchCountriesData } from './api';
+import { fetchData, fetchCountries, fetchCountriesData } from './api';
 import DropdownMenu from 'react-native-dropdown-menu';
-import { ECharts } from "react-native-echarts-wrapper";
-import { CountryPicker } from './components';
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph
-} from 'react-native-chart-kit';
+import { BarChart } from 'react-native-chart-kit';
 
 
 
 
 
-class Country extends React.Component {
+class Country extends Component {
+
+    // Constructor to save the data
 
     state = {
         countries: [],
         confirmed: {},
         recovered: {},
-        deaths: {}
+        deaths: {},
+        country: null,
     }
+
+    // Get the countries list
 
     async componentDidMount() {
 
         const fetchedCountries = await fetchCountries();
 
-        this.setState({ countries: fetchedCountries });
+        const firstOption = ['Please Select a Country'];
+
+        this.setState({ countries: [].concat(firstOption, fetchedCountries) });
 
     }
 
+    // Use the country selected to get data from this region
+
     handleCountryChange = async (country) => {
+
+        this.state.country = country;
+
+        if(country == 'Global' || country == null){ 
+            country = null;
+        }
 
         const fetchedCountriesData = await fetchCountriesData(country);
 
@@ -45,17 +51,17 @@ class Country extends React.Component {
 
     render() {
 
-        var data1 = [this.state.countries];
+        // Get the countries Array from state
 
-        const dataCountry = this.state.confirmed;
+        var countries = [this.state.countries];
+
+        // Separate the variables to insert in a new array
 
         let confirmedCases = this.state.confirmed.value;
         let recoveredCases = this.state.recovered.value;
         let deathsCases = this.state.deaths.value;
 
-        const dataCases = [confirmedCases, recoveredCases, deathsCases];
-
-        console.log(dataCases);
+        // Clean the variables to insert in a Bar chart
 
         if (confirmedCases == null)
             confirmedCases = null;
@@ -71,6 +77,7 @@ class Country extends React.Component {
             deathsCases = deathsCases / 1000;
 
 
+        // Data for Bar chart
 
         const data = {
             labels: ['Infected', 'Recovered', 'Deaths'],
@@ -79,6 +86,10 @@ class Country extends React.Component {
             }]
         }
 
+        // Inserting data in the constructor
+        
+        if(this.state.country == null)
+            this.state.country = 'Global';
 
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -92,7 +103,7 @@ class Country extends React.Component {
                                 padding: 16,
                                 marginTop: 16,
                             }}>
-                            Bar Chart
+                            {this.state.country} Situation
                         </Text>
 
                         <BarChart
@@ -106,7 +117,7 @@ class Country extends React.Component {
                                 backgroundGradientFrom: '#ffffff00',
                                 backgroundGradientTo: '#fff',
                                 strokeWidth: 2,
-                                decimalPlaces: 1,
+                                decimalPlaces: 3,
                                 color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
                                 style: {
                                     borderRadius: 16,
@@ -129,9 +140,9 @@ class Country extends React.Component {
                             bgColor={'white'}
                             tintColor={'#666666'}
                             activityTintColor={'green'}
-                            data={data1}
+                            data={countries}
                             maxHeight={200}
-                            handler={(selection, row) => this.handleCountryChange(data1[selection][row])}
+                            handler={(selection, row) => this.handleCountryChange(countries[selection][row])}
                         >
                         </DropdownMenu>
 

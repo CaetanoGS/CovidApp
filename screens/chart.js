@@ -8,11 +8,13 @@ import { ECharts } from "react-native-echarts-wrapper";
 
 export default class ChartPlot extends React.Component {
 
-
+    // Constructor to save data
 
     state = {
         data: [],
     }
+
+    // Getting data
 
     async componentDidMount() {
 
@@ -22,6 +24,7 @@ export default class ChartPlot extends React.Component {
 
     }
 
+    // Chart Setup
 
     option = {
         title: {
@@ -85,6 +88,7 @@ export default class ChartPlot extends React.Component {
 
 
         //https://echarts.apache.org/examples/en/ 
+        
         const { data } = this.state;
 
         const confirmed = data.map((data) => data.confirmed);

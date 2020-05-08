@@ -4,11 +4,16 @@ import { Cards } from './components';
 import { fetchData } from './api';
 
 
+
 class Home extends React.Component{
+
+    // Constructor to save data
 
     state = {
         data: {},
     }
+
+    // Get data and set the data
 
     async componentDidMount(){
 
@@ -20,13 +25,15 @@ class Home extends React.Component{
 
     render(){
 
+        // Get data from constructor
+
         const { data } = this.state;
 
         return (
 
-            <SafeAreaView>
-                <ScrollView>
-                <Cards data={data}/>
+            <SafeAreaView style={{backgroundColor: '#fff'}}>
+                <ScrollView style={{backgroundColor: '#fff' }}>
+                    <Cards data={data}/>
                 </ScrollView>
             </SafeAreaView>
         )

@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, SafeAreaView } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
 import { Card } from 'react-native-elements';
+
 
 
 
@@ -12,37 +13,42 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
         );
     }
 
+    var NumberFormat = require('react-number-format');
+
     return (
 
         <SafeAreaView>
-            <View>
-                <Card
-                    title="Number of active cases of COVID-19"
-                    
-                    style={{ card: { backgroundColor: 'red' } }}>
-                    <Text style={styles.number}>{confirmed.value}</Text>
-                    <Text style={styles.date}> {new Date(lastUpdate).toDateString()} </Text>
+            <ScrollView>
+                <View>
+                    <Card
+                        title="Number of active cases of COVID-19"
+                        image={require('../../images/confirmed.jpg')}
+                        style={{ card: { backgroundColor: 'red' } }}>
+                        <Text style={styles.number}>{
+                            confirmed.value.toLocaleString('pt-BR')
+                        }</Text>
+                        <Text style={styles.date}> {new Date(lastUpdate).toDateString()} </Text>
 
-                </Card>
+                    </Card>
 
-                <Card title="Number of recoveries cases from COVID-19"
-                    
-                    style={styles.recovered}>
-                    <Text style={styles.number}>{recovered.value}</Text>
-                    <Text style={styles.date}>{new Date(lastUpdate).toDateString()}</Text>
+                    <Card title="Number of recoveries cases from COVID-19"
+                        image={require('../../images/recovered.jpg')}
+                        style={styles.recovered}>
+                        <Text style={styles.number}>{recovered.value.toLocaleString('pt-BR')}</Text>
+                        <Text style={styles.date}>{new Date(lastUpdate).toDateString()}</Text>
 
-                </Card>
+                    </Card>
 
-                <Card title="Number of deaths caused by COVID-19"
-                    
-                    style={styles.deaths}>
+                    <Card title="Number of deaths caused by COVID-19"
+                        image={require('../../images/deaths.jpg')}
+                        style={styles.deaths}>
+                        <Text style={styles.number}>{deaths.value.toLocaleString('pt-BR')}</Text>
+                        <Text style={styles.date}>{new Date(lastUpdate).toDateString()}</Text>
 
-                    <Text style={styles.number}>{deaths.value}</Text>
-                    <Text style={styles.date}>{new Date(lastUpdate).toDateString()}</Text>
+                    </Card>
 
-                </Card>
-
-            </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
 
     );

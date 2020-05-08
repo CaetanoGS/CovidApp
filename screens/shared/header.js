@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , Image} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 
@@ -14,7 +14,15 @@ export default function Header({ navigation, title }) {
         <View style={styles.header}>
             <MaterialIcons name='menu' size={28} onPress={openMenu} style={styles.icon} />
             <View>
-                <Text style={styles.headerText}>{title}</Text>
+                <Image
+                    style={{
+                        width: 40,
+                        height: 40,
+                        resizeMode: 'stretch',
+                    }}
+                    source={require('../images/covidIcon.png')}
+                />
+                
             </View>
         </View>
     );
@@ -38,7 +46,7 @@ const styles = StyleSheet.create({
 
     icon: {
         position: 'absolute',
-        left: -60,
+        left: -90,
         color: '#fff',
     },
 });
