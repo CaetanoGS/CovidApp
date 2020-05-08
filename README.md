@@ -1,6 +1,7 @@
 # CovidApp
 React Native Covid-19 App to search how many deaths, cases and recovered persons are in your area
 
+![Covid Tracker](https://user-images.githubusercontent.com/50907344/81361580-05f0df00-90df-11ea-965c-9cef4a0ca34a.png)
 
 
 ## About this Project
