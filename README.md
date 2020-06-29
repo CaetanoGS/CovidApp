@@ -51,7 +51,7 @@ If you want to test the React Native App, the installers are listed below:
 
 ### Prerequisites
 
-To run this project in the development mode, you'll need to have a basic environment to run a Python, that can be found [here](https://code.visualstudio.com/download).
+To run this project in the development mode, you'll need to have a basic environment to run a JavaScript, that can be found [here](https://code.visualstudio.com/download).
 
 ### Installing
 
